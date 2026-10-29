@@ -141,7 +141,7 @@ function draw(){g.fillStyle='#0b0d24';g.fillRect(0,0,W,H);
  if(msgT>0)txt(msg,W/2,by+6*cell,18*DPR,'#fff','#000');
  if(state=='title'){panel(H*.2,330*S);txt('BLOCK',W/2,H*.2+50*S,46*S,'#3ce0f0','#000');txt('DROP',W/2,H*.2+100*S,46*S,'#f8e03c','#000');
   ['Swipe ◀ ▶ to move','Tap to rotate (left edge: ⟲)','Drag ▼ soft drop · flick ▼ drop','Swipe ▲ to HOLD','Clear lines to level up!'].forEach((s,i)=>txt(s,W/2,H*.2+(150+i*26)*S,15*S,'#fff'));
-  txt(`BEST ${best}`,W/2,H*.2+290*S,15*S,'#f89c2c');if(t%60<40)txt('TAP TO START',W/2,H*.2+370*S,22*S,'#fff','#000')}
+  txt(`BEST ${best}`,W/2,H*.2+290*S,15*S,'#f89c2c');txt('🎮 Controller: A rotate · X drop · Y hold',W/2,H*.2+313*S,12*S,'#9fe8ff');if(t%60<40)txt('TAP TO START',W/2,H*.2+370*S,22*S,'#fff','#000')}
  if(state=='over'){panel(H*.28,190*S);txt('GAME OVER',W/2,H*.28+40*S,32*S,'#f04c5c');txt(`SCORE ${score}`,W/2,H*.28+82*S,20*S,'#fff');txt(`LINES ${lines} · BEST ${best}`,W/2,H*.28+112*S,15*S,'#f8e03c');if(t-overT>40&&t%50<35)txt('TAP TO PLAY AGAIN',W/2,H*.28+154*S,16*S,'#3ce0f0')}}
 function uiGame(play){$('bar').style.display=play?'flex':'none'}
 
@@ -434,4 +434,16 @@ window.__unlock={unlocked:un,sample:window.__SAMPLE||null,get badge(){return las
 .tb{width:48px!important;height:48px!important}#mute{right:60px!important}
 #bar button.h{font-size:16px!important}
 </style>
+<!-- gamepad:start -->
+<script src="gamepad.js?v=1"></script>
+<script>
+GamepadSupport.init({
+ keys:{left:'ArrowLeft',right:'ArrowRight',down:'ArrowDown',up:'ArrowUp',a:'KeyX',b:'KeyZ',x:'Space',y:'KeyC',lb:'KeyC',rb:'KeyC',start:'KeyP',back:function(p){if(p)document.getElementById('mute').click()}},
+ menuKeys:{a:'Enter',start:'Enter',x:'Enter'},
+ noRepeat:['a','b','x','y','lb','rb','start','up'],
+ ignoreSel:'#dock,#mute,#pause,#inst,#bar',
+ menu:function(){return !!document.querySelector('#palbOv.on,#smpLock.on')||state!=='play';}
+});
+</script>
+<!-- gamepad:end -->
 </body></html>
